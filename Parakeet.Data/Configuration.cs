@@ -16,11 +16,7 @@ namespace Parakeet.Data
 
         static Configuration()
         {
-            SessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(c => 
-                    c.Server("localhost").Database("parakeet.mdf")))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Person>())
-                .BuildSessionFactory();
+            
         }
     }
 }
