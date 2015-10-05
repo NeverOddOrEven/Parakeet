@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Parakeet.Data.Entities;
+using Parakeet.Data.Mappings;
 
 namespace Parakeet.Data
 {
@@ -17,9 +17,11 @@ namespace Parakeet.Data
         static NHibernateSessionHandler()
         {
             _sessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(c =>
-                    c.Server("localhost").Database("parakeet.mdf")))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Person>())
+                .Database(MsSqlConfiguration.MsSql2012
+                    .ConnectionString(
+                        "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\Parakeet.mdf\";Integrated Security=True"))
+                    
+                .Mappings(m => m.FluentMappings.Add<PersonMap>())
                 .BuildSessionFactory();
         }
 

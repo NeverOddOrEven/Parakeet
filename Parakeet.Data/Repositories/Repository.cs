@@ -7,18 +7,25 @@ namespace Parakeet.Data.Repositories
 {
     public class Repository<T> : IRepository<T>
     {
-        private ISessionFactory sessionFactory;
+        private ISessionFactory _sessionFactory;
 
-        public Repository() : this(NHibernateSessionHandler)
+        public Repository() : this(NHibernateSessionHandler.SessionFactory) { } 
 
         public Repository(ISessionFactory sessionFactory)
         {
-            this.sessionFactory = sessionFactory;
+            _sessionFactory = sessionFactory;
         }
 
         public int Add(T entity)
         {
-            throw new NotImplementedException();
+            using (var session = BeginSession())
+            using (var transaction = session.Transaction)
+            {
+                transaction.Begin();
+                session.Save(entity);
+                transaction.Commit();
+                return 0;
+            }
         }
 
         public void Delete(T entity)
@@ -44,6 +51,11 @@ namespace Parakeet.Data.Repositories
         public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
         {
             throw new NotImplementedException();
+        }
+
+        protected ISession BeginSession()
+        {
+            return _sessionFactory.OpenSession();
         }
     }
 }

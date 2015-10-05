@@ -7,7 +7,7 @@ namespace Parakeet.Data.Mappings
     {
         public PersonMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.FirstName);
             Map(x => x.LastName);
         }

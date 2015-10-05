@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Parakeet.Data.Repositories
 {
+    //
+    // Until I figure out the IoC container
+    //
     public class RepositoryCache
     {
-        private IPeopleRepository _peopleRepository { get; set; }
-        public IPeopleRepository PeopleRepository { get { return _peopleRepository; } } 
-
-        public RepositoryCache()
-        {
-            _peopleRepository = new PeopleRepository();
-        }
+        private static IPeopleRepository _peopleRepository;
+        public IPeopleRepository PeopleRepository { get { return _peopleRepository ?? (_peopleRepository = new PeopleRepository()); } } 
     }
 }
