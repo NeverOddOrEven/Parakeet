@@ -12,19 +12,27 @@ namespace Parakeet.Data
 {
     public static class NHibernateSessionHandler
     {
-        private static ISessionFactory _sessionFactory {get; set;}
+        private static bool IsSetForUnitTest = true;
 
-        static NHibernateSessionHandler()
+        public static ISessionFactory SessionFactory { get { return _sessionFactory.Value; } }
+        private static Lazy<ISessionFactory> _sessionFactory = new Lazy<ISessionFactory>(() =>
         {
-            _sessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012
-                    .ConnectionString(
-                        "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\Parakeet.mdf\";Integrated Security=True"))
-                    
-                .Mappings(m => m.FluentMappings.Add<PersonMap>())
-                .BuildSessionFactory();
-        }
+            var connString = IsSetForUnitTest
+                ? "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\Parakeet.mdf\";Integrated Security=True"
+                : "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\UnitTest.mdf\";Integrated Security=True";
 
-        public static ISessionFactory SessionFactory { get { return _sessionFactory; } }
+            var sessionFactory = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connString))
+                .Mappings(m => m.FluentMappings.Add<PersonMap>())
+                .Mappings(m => m.FluentMappings.Add<RoleMap>())
+                .BuildSessionFactory();
+
+            return sessionFactory;
+        });
+
+        public static void InitForUnitTest()
+        {
+            IsSetForUnitTest = false;
+        }
     }
 }

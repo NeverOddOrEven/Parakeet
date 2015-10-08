@@ -13,34 +13,36 @@ namespace Parakeet.Data.Migrator
             if (args.Length == 0)
                 args = new string[] {"up"};
 
-            var unitTestDb = "";
-            var mainDb = "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\Parakeet.mdf\";Integrated Security=True";
-
-            string conn;
-            bool up = true;
+            var dbPath = @"C:\Users\asuttmiller\documents\visual studio 2013\Projects\Parakeet\Parakeet.Data";
+            var dbName = "Parakeet";
+            bool up = true;            
+            
             if (args[0] == "unittest:down")
             {
-                conn = unitTestDb;
+                dbName = "Unittest";
                 up = false;
             }
             else if (args[0] == "down")
             {
-                conn = mainDb;
                 up = false;
             }
-            else if (args[0] == "unittest:down")
-                conn = unitTestDb;
-            else
-                conn = mainDb;
-
+            else if (args[0] == "unittest:up") 
+            {
+                dbName = "Unittest";
+            }
+            
+            var connStr = String.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\\{1}.mdf\";Integrated Security=True", dbPath, dbName);
+            
             Console.WriteLine("Applying migrations...");
             if (up == true)
             {
-                Runner.MigrateToLatest(conn);
+                GenerateDatabase.Create(dbPath, dbName, false);
+                Runner.MigrateToLatest(connStr);
             }
             else
             {
-                Runner.MigrateDownOne(conn);
+                GenerateDatabase.Create(dbPath, dbName, false);
+                Runner.MigrateDownOne(connStr);
             }
 
             Console.WriteLine("Done applying migrations...");

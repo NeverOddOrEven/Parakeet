@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parakeet.Data.Migrator", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parakeet.Cli", "Parakeet.Cli\Parakeet.Cli.csproj", "{0A07C106-D374-4D8F-B4AE-A2E3AF53AF48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parakeet.Data.Tests", "Parakeet.Data.Tests\Parakeet.Data.Tests.csproj", "{384971E5-0830-47EC-8509-4FCC82659038}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0A07C106-D374-4D8F-B4AE-A2E3AF53AF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A07C106-D374-4D8F-B4AE-A2E3AF53AF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A07C106-D374-4D8F-B4AE-A2E3AF53AF48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384971E5-0830-47EC-8509-4FCC82659038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384971E5-0830-47EC-8509-4FCC82659038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384971E5-0830-47EC-8509-4FCC82659038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384971E5-0830-47EC-8509-4FCC82659038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

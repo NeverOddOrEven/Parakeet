@@ -10,6 +10,8 @@ namespace Parakeet.Data.Mappings
             Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.FirstName);
             Map(x => x.LastName);
+            Map(x => x.SeparationDate);
+            Map(x => x.HireDate);
         }
     }
 }
