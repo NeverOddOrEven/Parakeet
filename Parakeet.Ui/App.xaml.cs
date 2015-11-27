@@ -19,14 +19,8 @@ namespace Parakeet.Ui
     {
         public App()
         {
-            var kernel = new StandardKernel();
+            var kernel = new Ninject.StandardKernel();
             kernel.Load(new NInjectConfiguration());
-
-
-            var simpleService = kernel.Get<ISimpleService>();
-            var simpleServiceTwo = kernel.Get<ISimpleServiceTwo>();
-
-            Console.ReadLine();
         }
     }
 }

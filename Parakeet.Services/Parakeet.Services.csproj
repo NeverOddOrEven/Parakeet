@@ -39,9 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SimpleService.cs" />
+    <Compile Include="DatabaseFileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleServiceTwo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Parakeet.Data\Parakeet.Data.csproj">

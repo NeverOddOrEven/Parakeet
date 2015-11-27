@@ -7,8 +7,7 @@ namespace Parakeet.Ui
     {
         public override void Load()
         {
-            Bind<ISimpleService>().To<SimpleService>();
-            Bind<ISimpleServiceTwo>().To<SimpleServiceTwo>();
+            Bind<IDatabaseFileService>().To<DatabaseFileService>();
         }
     }
 }
