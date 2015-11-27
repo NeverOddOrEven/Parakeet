@@ -35,14 +35,14 @@ namespace Parakeet.Ui
             throw new NotImplementedException();
         }
 
-        private void OnCreateDatabaseFile(object sender, RoutedEventArgs e)
-        {
-            WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void OnCreateDatabaseFile(object sender, TouchEventArgs e)
-        {
-            WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
-        }
+        //private void OnCreateDatabaseFile(object sender, RoutedEventArgs e)
+        //{
+        //    WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
+        //}
+        //
+        //private void OnCreateDatabaseFile(object sender, TouchEventArgs e)
+        //{
+        //    WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
+        //}
     }
 }
