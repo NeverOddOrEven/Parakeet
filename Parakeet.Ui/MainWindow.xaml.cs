@@ -23,26 +23,9 @@ namespace Parakeet.Ui
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void OnOpenDatabaseFile(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            MainFrame.Navigate(new SplashPage());
         }
-
-        private void OnOpenDatabaseFile(object sender, TouchEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        //private void OnCreateDatabaseFile(object sender, RoutedEventArgs e)
-        //{
-        //    WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
-        //}
-        //
-        //private void OnCreateDatabaseFile(object sender, TouchEventArgs e)
-        //{
-        //    WelcomeCanvas.Visibility = System.Windows.Visibility.Hidden;
-        //}
+        
     }
 }

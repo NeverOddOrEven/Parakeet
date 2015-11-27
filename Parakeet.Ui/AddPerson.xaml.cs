@@ -18,7 +18,7 @@ namespace Parakeet.Ui
     /// <summary>
     /// Interaction logic for AddPerson.xaml
     /// </summary>
-    public partial class AddPerson : Page
+    public partial class AddPerson : Page, IApplicationPage
     {
         public AddPerson()
         {
