@@ -1,26 +1,16 @@
-﻿using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Ninject.Modules;
-using Ninject;
-using Parakeet.Services;
+﻿using System.Windows;
+using GalaSoft.MvvmLight.Threading;
 
-namespace Parakeet.Ui
+namespace HelloWorld
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
-        public App()
+        static App()
         {
-            var kernel = new Ninject.StandardKernel();
-            kernel.Load(new NInjectConfiguration());
+            DispatcherHelper.Initialize();
         }
     }
 }

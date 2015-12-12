@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Parakeet.Ui
+namespace HelloWorld
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Introduction.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Introduction : Page
     {
-        public MainWindow()
+        public Introduction()
         {
             InitializeComponent();
-
-            MainFrame.Navigate(new SplashPage());
         }
-        
     }
 }

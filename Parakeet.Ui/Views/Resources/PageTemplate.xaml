@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate TargetType="Frame" x:Key="PageTemplate">
+        <DockPanel>
+            <StackPanel Margin="7" Orientation="Horizontal" DockPanel.Dock="Top">
+                <Button Content="Go back" Command="{x:Static NavigationCommands.BrowseBack}" 
+                        IsEnabled="{TemplateBinding CanGoBack}"></Button>
+                <Button Content="Go forward" Command="{x:Static NavigationCommands.BrowseForward}" 
+                        IsEnabled="{TemplateBinding CanGoBack}"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <Label>
+                    <Hyperlink NavigateUri="..\EmployeeCenter.xaml">Employee Center</Hyperlink>
+                </Label>
+            </StackPanel>
+            <ContentPresenter />
+        </DockPanel>
+    </ControlTemplate>
+</ResourceDictionary>

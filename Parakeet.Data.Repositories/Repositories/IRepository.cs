@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using NHibernate;
 
 namespace Parakeet.Data.Repositories
 {
@@ -17,6 +13,4 @@ namespace Parakeet.Data.Repositories
         T Where(int id);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
     }
-
-    
 }

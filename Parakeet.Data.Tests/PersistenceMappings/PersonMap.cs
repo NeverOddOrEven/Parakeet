@@ -1,7 +1,5 @@
 ﻿using FluentNHibernate.Testing;
-using Microsoft.VisualStudio.TestTools.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.QualityTools.UnitTestFramework;
 using System;
 using Parakeet.Data.Entities;
 
