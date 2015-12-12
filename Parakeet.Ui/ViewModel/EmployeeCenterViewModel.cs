@@ -1,11 +1,17 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using HelloWorld.Model;
+using Parakeet.Services;
+using System;
+using System.Windows.Controls;
 
 namespace HelloWorld.ViewModel
 {
     public class EmployeeCenterViewModel : ViewModelBase
     {
-        private IDataService _dataService;
+        private IEmployeeService _employeeService;
+
+        public RelayCommand<TextChangedEventArgs> SearchForEmployeeCommand { get; set; }
 
         private string _searchField;
         public string SearchField
@@ -36,10 +42,27 @@ namespace HelloWorld.ViewModel
         /// <summary>
         /// Initializes a new instance of the EmployeeCenterViewModel class.
         /// </summary>
-        public EmployeeCenterViewModel(IDataService dataService)
+        public EmployeeCenterViewModel(IEmployeeService employeeService)
         {
-            _dataService = dataService;
-            Employee = new Employee { FirstName = "Jeeb" };
+            _employeeService = employeeService;
+
+            InitializeView();
+        }
+
+        private void InitializeView()
+        {
+            Employee = new Employee();
+            SearchField = string.Empty;
+
+            SearchForEmployeeCommand = new RelayCommand<TextChangedEventArgs>(
+                (textChangedEvent) => {
+                    Console.WriteLine("Test");
+                }, 
+                (textChangedEvent) => {
+                    Console.WriteLine(SearchField);
+                    return SearchField.Length > 2;
+                }    
+            );
         }
     }
 }

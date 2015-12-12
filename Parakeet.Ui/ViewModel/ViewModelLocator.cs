@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using HelloWorld.Model;
+using Parakeet.Services;
 
 namespace HelloWorld.ViewModel
 {
@@ -32,10 +33,12 @@ namespace HelloWorld.ViewModel
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
+                
             }
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
