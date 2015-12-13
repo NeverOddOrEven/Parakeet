@@ -3,7 +3,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using HelloWorld.Model;
 using Parakeet.Services;
 using System;
-using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HelloWorld.ViewModel
 {
@@ -11,7 +12,47 @@ namespace HelloWorld.ViewModel
     {
         private IEmployeeService _employeeService;
 
-        public RelayCommand<TextChangedEventArgs> SearchForEmployeeCommand { get; set; }
+        public RelayCommand SearchForEmployeeCommand { get; set; }
+
+        private bool _showMatchingEmployees;
+        public bool ShowMatchingEmployees
+        {
+            get
+            {
+                return _showMatchingEmployees;
+            }
+            set
+            {
+                Set(ref _showMatchingEmployees, value);
+            }
+        }
+
+        private string _selectedEmployee;
+        public string SelectedEmployee
+        {
+            get
+            {
+                return _selectedEmployee;
+            }
+            set
+            {
+                Set(ref _selectedEmployee, value);
+            }
+        }
+
+        private ObservableCollection<string> _employeesFound;
+        public ObservableCollection<string> EmployeesFound
+        {
+            get
+            {
+                return _employeesFound;
+            }
+            set
+            {
+                Set(ref _employeesFound, value);
+                ShowMatchingEmployees = true;
+            }
+        }
 
         private string _searchField;
         public string SearchField
@@ -54,13 +95,13 @@ namespace HelloWorld.ViewModel
             Employee = new Employee();
             SearchField = string.Empty;
 
-            SearchForEmployeeCommand = new RelayCommand<TextChangedEventArgs>(
-                (textChangedEvent) => {
-                    Console.WriteLine("Test");
+            SearchForEmployeeCommand = new RelayCommand(
+                () => {
+                    var found = _employeeService.FindEmployee(SearchField);
+                    EmployeesFound = new ObservableCollection<string>(found.Select(x => x.FirstName));
                 }, 
-                (textChangedEvent) => {
-                    Console.WriteLine(SearchField);
-                    return SearchField.Length > 2;
+                () => {
+                    return SearchField.Length > 1;
                 }    
             );
         }

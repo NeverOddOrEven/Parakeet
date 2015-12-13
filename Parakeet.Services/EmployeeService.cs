@@ -1,6 +1,7 @@
 ﻿using Parakeet.Data.Entities;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Parakeet.Services
 {
@@ -11,9 +12,15 @@ namespace Parakeet.Services
 
     public class EmployeeService : IEmployeeService
     {
+        private List<string> temp = new List<string>
+        {
+            "aa", "ab", "aac", "aad", "abc"
+        };
+
         public List<Person> FindEmployee(string searchString)
         {
-            throw new NotImplementedException();
+            return temp.Where(x => x.Contains(searchString))
+                       .Select(x => new Person {FirstName = x}).ToList();
         }
     }
 }

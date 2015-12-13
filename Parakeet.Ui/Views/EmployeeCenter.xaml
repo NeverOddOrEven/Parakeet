@@ -12,16 +12,19 @@
 
     <DockPanel x:Name="EmployeePage">
         <StackPanel DockPanel.Dock="Top" Margin="5">
-
-            <Label Target="{Binding ElementName=EmployeeSearchTxt}" Content="Find Employee:"/>
-            <TextBox x:Name="EmployeeSearchTxt" Text="{Binding SearchField, UpdateSourceTrigger=PropertyChanged}">
+            <Label Target="{Binding ElementName=EmployeeSearchComboBox}" Content="Find Employee:"/>
+            <ComboBox x:Name="EmployeeSearchComboBox"
+                      IsEditable="True"
+                      ItemsSource="{Binding EmployeesFound}"
+                      SelectedItem="{Binding SelectedEmployee}"
+                      Text="{Binding SearchField, UpdateSourceTrigger=PropertyChanged}"
+                      IsDropDownOpen="{Binding ShowMatchingEmployees, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged">
+                    <i:EventTrigger EventName="KeyUp">
                         <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=SearchForEmployeeCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </TextBox>
-            <Button Content="Search"/>
+            </ComboBox>
         </StackPanel>
         <WrapPanel Orientation="Horizontal" Margin="5">
             <StackPanel MaxWidth="250" MinWidth="150" Margin="0,0,10,10">
