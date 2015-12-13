@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Parakeet.Ui.ViewModel;
+using System;
 using System.Windows;
-using HelloWorld.ViewModel;
 
 namespace HelloWorld
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
 
-namespace HelloWorld.ViewModel
+namespace Parakeet.Ui.ViewModel
 {
     public class HomeViewModel : ViewModelBase
     {

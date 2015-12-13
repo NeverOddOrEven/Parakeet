@@ -1,18 +1,19 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using HelloWorld.Model;
 using Parakeet.Services;
-using System;
+using Parakeet.Ui.Mapper;
+using Parakeet.Ui.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace HelloWorld.ViewModel
+namespace Parakeet.Ui.ViewModel
 {
     public class EmployeeCenterViewModel : ViewModelBase
     {
         private IEmployeeService _employeeService;
 
         public RelayCommand SearchForEmployeeCommand { get; set; }
+        public RelayCommand SaveEmployeeCommand { get; set; }
 
         private bool _showMatchingEmployees;
         public bool ShowMatchingEmployees
@@ -97,12 +98,17 @@ namespace HelloWorld.ViewModel
 
             SearchForEmployeeCommand = new RelayCommand(
                 () => {
-                    var found = _employeeService.FindEmployee(SearchField);
+                    var found = _employeeService.Find(SearchField);
                     EmployeesFound = new ObservableCollection<string>(found.Select(x => x.FirstName));
                 }, 
                 () => {
                     return SearchField.Length > 1;
                 }    
+            );
+
+            SaveEmployeeCommand = new RelayCommand(
+                () => _employeeService.Save(Employee.ToEntity()),
+                () => true
             );
         }
     }

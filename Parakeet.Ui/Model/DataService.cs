@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HelloWorld.Model
+namespace Parakeet.Ui.Model
 {
     public interface IDataService
     {

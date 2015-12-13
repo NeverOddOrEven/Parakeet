@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Design\EmployeeService.cs" />
+    <Compile Include="Mapper\EmployeeMapper.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="ViewModel\EmployeeCenterViewModel.cs" />
     <Compile Include="Views\EmployeeCenter.xaml.cs">

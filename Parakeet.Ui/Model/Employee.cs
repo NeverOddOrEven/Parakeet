@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HelloWorld.Model
+namespace Parakeet.Ui.Model
 {
     [Serializable]
     public class Employee
@@ -10,7 +10,7 @@ namespace HelloWorld.Model
             Position = new Position();
         }
 
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime HireDate { get; set; }

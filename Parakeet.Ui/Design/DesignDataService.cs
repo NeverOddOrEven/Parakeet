@@ -1,7 +1,7 @@
-﻿using System;
-using HelloWorld.Model;
+﻿using Parakeet.Ui.Model;
+using System;
 
-namespace HelloWorld.Design
+namespace Parakeet.Ui.Design
 {
     public class DesignDataService : IDataService
     {

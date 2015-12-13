@@ -7,7 +7,8 @@ namespace Parakeet.Services
 {
     public interface IEmployeeService
     {
-        List<Person> FindEmployee(string searchString);
+        List<Person> Find(string searchString);
+        bool Save(Person person);
     }
 
     public class EmployeeService : IEmployeeService
@@ -17,10 +18,15 @@ namespace Parakeet.Services
             "aa", "ab", "aac", "aad", "abc"
         };
 
-        public List<Person> FindEmployee(string searchString)
+        public List<Person> Find(string searchString)
         {
             return temp.Where(x => x.Contains(searchString))
                        .Select(x => new Person {FirstName = x}).ToList();
+        }
+
+        public bool Save(Person person)
+        {
+            throw new NotImplementedException();
         }
     }
 }

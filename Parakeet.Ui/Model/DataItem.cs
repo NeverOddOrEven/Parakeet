@@ -1,4 +1,4 @@
-﻿namespace HelloWorld.Model
+﻿namespace Parakeet.Ui
 {
     public class DataItem
     {
