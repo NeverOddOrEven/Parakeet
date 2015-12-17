@@ -39,10 +39,12 @@ namespace Parakeet.Ui.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
                 SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
+                SimpleIoc.Default.Register<IDatabaseFileService, DatabaseFileService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeeCenterViewModel>();
+            SimpleIoc.Default.Register<HomeViewModel>();
         }
 
         /// <summary>
@@ -70,6 +72,20 @@ namespace Parakeet.Ui.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<EmployeeCenterViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Main property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public HomeViewModel Home
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<HomeViewModel>();
             }
         }
 

@@ -6,40 +6,78 @@ namespace Parakeet.Data.Migrator
 {
     public static class GenerateDatabase
     {
-        public static void Create(string absolutePath, string dbName, bool recreateIfExists = false)
-        {
-            if (!Directory.Exists(absolutePath))
-                Directory.CreateDirectory(absolutePath);
+        private static string ConnectionString;
 
+        public static bool Create(string directory, string dbName, string extension, bool recreateIfExists = false)
+        {
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            string fullpath = Path.Combine(directory, Path.ChangeExtension(dbName, extension));
+            string dbLogPath = Path.Combine(directory, Path.ChangeExtension(dbName + "_log", ".ldf"));
             string dbFileName = Path.GetFileNameWithoutExtension(dbName);
 
-            if (recreateIfExists && File.Exists(Path.Combine(absolutePath, dbFileName + ".mdf")))
+            if (recreateIfExists && File.Exists(fullpath))
             {
-                File.Delete(Path.Combine(absolutePath, dbFileName + ".mdf"));
-                File.Delete(Path.Combine(absolutePath, dbFileName + "_log.ldf"));
+                File.Delete(fullpath);
+                File.Delete(dbLogPath);
             }
 
-            if (!File.Exists(Path.Combine(absolutePath, dbFileName + ".mdf")))
-                CreateDatabase(Path.Combine(absolutePath, dbFileName + ".mdf"), dbName);
+            if (!File.Exists(fullpath))
+            {
+                if (CreateDatabase(directory, dbName, extension))
+                {
+                    try
+                    {
+                        var connectionString = string.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\";Initial Catalog={1};Integrated Security=True", fullpath, dbName);
+                        Runner.MigrateToLatest(connectionString);
+
+                        System.GC.Collect();
+
+                        DetachDatabase(dbName);
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+
+
+            return false;
         }
 
-        private static void CreateDatabase(string fullPath, string dbName)
+        private static bool CreateDatabase(string directory, string dbName, string extension)
         {
-            string connectionString = String.Format(@"Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True");
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand cmd = connection.CreateCommand();
+            string fullpath = Path.Combine(directory, Path.ChangeExtension(dbName, extension));
+
+            try {
+                string connectionString = string.Format(@"Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True");
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand cmd = connection.CreateCommand();
+
+                    cmd.CommandText = string.Format("CREATE DATABASE {0} ON (NAME = N'{0}', FILENAME = '{1}')", dbName, fullpath);
+                    cmd.ExecuteNonQuery();
+                }
 
                 DetachDatabase(dbName);
-
-                cmd.CommandText = String.Format("CREATE DATABASE {0} ON (NAME = N'{0}', FILENAME = '{1}')", dbName, fullPath);
-                cmd.ExecuteNonQuery();
+                
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
         private static void DetachDatabase(string dbName) {
-            string connectionString = @"Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\v11.0;Initial Catalog=master;Integrated Security=True";
 
             try
             {
@@ -47,11 +85,20 @@ namespace Parakeet.Data.Migrator
                 {
                     connection.Open();
                     SqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = String.Format("exec sp_detach_db '{0}'", dbName);
+                    var cmdTxt = string.Format(@"
+                        USE [master];
+                        
+                        ALTER DATABASE [{0}] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                        
+                        USE [master];
+                        
+                        exec sp_detach_db '{0}';
+                        ", dbName);
+                    cmd.CommandText = cmdTxt;
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Console.WriteLine("Database: {0}, was not in the catalog. No need to detach the database.", dbName);
             }

@@ -49,10 +49,17 @@
       <Project>{68b36277-88b2-44ab-ac6a-d6c92113793b}</Project>
       <Name>Parakeet.Data.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Parakeet.Data.Migrator\Parakeet.Data.Migrator.csproj">
+      <Project>{228eb3a0-774c-4849-913f-6f1b0e9dfc91}</Project>
+      <Name>Parakeet.Data.Migrator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Parakeet.Data.Repositories\Parakeet.Data.Repositories.csproj">
       <Project>{c0afeb85-6273-4f86-9c7a-ae295b38b4e8}</Project>
       <Name>Parakeet.Data.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

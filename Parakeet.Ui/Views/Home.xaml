@@ -1,25 +1,27 @@
-﻿<Page x:Class="HelloWorld.Introduction"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HelloWorld"
+      xmlns:ViewModel="clr-namespace:Parakeet.Ui.ViewModel" x:Class="Parakeet.Ui.Home"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Home Page"
-      DataContext="{Binding Main, Source={StaticResource Locator}}">
+      DataContext="{Binding Home, Source={StaticResource Locator}}">
 
     <Grid x:Name="HomePage">
         <StackPanel>
-            <Button Content="Increment by 1" Command="{Binding IncrementByOneCmd}" />
-
             <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="#FF2C8000"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" FontFamily="Sitka Small" />
+				FontWeight="Bold"
+				Foreground="#FF2C8000"
+				Text="Minions"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				TextWrapping="Wrap" FontFamily="Sitka Small" />
+            <Button x:Name="CreateNewFileBtn" Content="Create New File" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding CreateNewFileCommand, Mode=OneWay}"/>
+            <Button x:Name="OpenExistingFileBtn" Content="Open Existing File" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding OpenExistingFileCommand, Mode=OneWay}"/>
+
         </StackPanel>
     </Grid>
 </Page>

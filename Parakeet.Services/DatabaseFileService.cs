@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Parakeet.Data.Migrator;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace Parakeet.Services
     public interface IDatabaseFileService
     {
         bool OpenFile(string openFromFullpath);
-        bool SaveFile(string saveToFullpath);
+        bool CreateFile(string saveToFullpath);
     }
 
     public class DatabaseFileService : IDatabaseFileService
@@ -19,9 +21,13 @@ namespace Parakeet.Services
             return false;
         }
 
-        public bool SaveFile(string saveToFullpath)
+        public bool CreateFile(string saveToFullpath)
         {
-            return false;
+            var fileExtension = Path.GetExtension(saveToFullpath);
+            var dbName = Path.GetFileNameWithoutExtension(saveToFullpath);
+            var directory = Path.GetDirectoryName(saveToFullpath);
+            
+            return GenerateDatabase.Create(directory, dbName, fileExtension, false);
         }
     }
 }

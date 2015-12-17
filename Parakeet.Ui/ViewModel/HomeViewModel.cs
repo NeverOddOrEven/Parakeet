@@ -1,5 +1,9 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Win32;
+using System.ComponentModel;
+using Parakeet.Services;
 
 namespace Parakeet.Ui.ViewModel
 {
@@ -7,11 +11,64 @@ namespace Parakeet.Ui.ViewModel
     {
         internal static readonly Uri Uri = new Uri(@"..\Views\Home.xaml", UriKind.RelativeOrAbsolute);
 
+        private IDatabaseFileService _databaseFileService;
+
+        public RelayCommand CreateNewFileCommand { get; private set; }
+        public RelayCommand OpenExistingFileCommand { get; private set; }
+
+        private string selectedFile;
+        public string SelectedFile {
+            get { return selectedFile; }
+            private set {
+                Set(nameof(SelectedFile), ref selectedFile, value);
+                OpenExistingFileCommand.RaiseCanExecuteChanged();
+                CreateNewFileCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the IntroductionViewModel class.
         /// </summary>
-        public HomeViewModel()
+        public HomeViewModel(IDatabaseFileService databaseFileService)
         {
+            _databaseFileService = databaseFileService;
+
+            CreateNewFileCommand = new RelayCommand(() => {
+                var saveFileDialog = new SaveFileDialog();
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.DefaultExt = "pktd";
+                saveFileDialog.Filter = "Parakeet File|*.pktd;*.pkd";
+                saveFileDialog.FileOk += SaveFileDialog_FileOk;
+                saveFileDialog.ShowDialog();
+            }, () => string.IsNullOrEmpty(SelectedFile));
+
+            OpenExistingFileCommand = new RelayCommand(() => {
+                var openFileDialog = new OpenFileDialog();
+                openFileDialog.AddExtension = true;
+                openFileDialog.DefaultExt = "pktd";
+                openFileDialog.Filter = "Parakeet File|*.pktd;*.pkd";
+                openFileDialog.Multiselect = false;
+                openFileDialog.FileOk += OpenFileDialog_FileOk;
+                openFileDialog.ShowDialog();
+            }, () => string.IsNullOrEmpty(SelectedFile));
+        }
+
+        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            var openFileDialog = sender as OpenFileDialog;
+
+            SelectedFile = openFileDialog.SafeFileName;
+
+            _databaseFileService.OpenFile(openFileDialog.FileName);
+        }
+
+        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            var saveFileDialog = sender as SaveFileDialog;
+
+            SelectedFile = saveFileDialog.SafeFileName;
+
+            _databaseFileService.CreateFile(saveFileDialog.FileName);
         }
     }
 }

@@ -36,12 +36,12 @@ namespace Parakeet.Data.Migrator
             Console.WriteLine("Applying migrations...");
             if (up == true)
             {
-                GenerateDatabase.Create(dbPath, dbName, false);
+                GenerateDatabase.Create(dbPath, dbName, "pkt", false);
                 Runner.MigrateToLatest(connStr);
             }
             else
             {
-                GenerateDatabase.Create(dbPath, dbName, false);
+                GenerateDatabase.Create(dbPath, dbName, "pkt", false);
                 Runner.MigrateDownOne(connStr);
             }
 
