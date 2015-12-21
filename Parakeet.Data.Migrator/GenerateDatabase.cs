@@ -6,7 +6,11 @@ namespace Parakeet.Data.Migrator
 {
     public static class GenerateDatabase
     {
-        private static string ConnectionString;
+        public static string GetConnectionString(string fullpath, string dbName)
+        {
+            var connectionString = string.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\";Initial Catalog={1};Integrated Security=True", fullpath, dbName);
+            return connectionString;
+        }
 
         public static bool Create(string directory, string dbName, string extension, bool recreateIfExists = false)
         {
@@ -29,7 +33,7 @@ namespace Parakeet.Data.Migrator
                 {
                     try
                     {
-                        var connectionString = string.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\";Initial Catalog={1};Integrated Security=True", fullpath, dbName);
+                        var connectionString = GetConnectionString(fullpath, dbName);
                         Runner.MigrateToLatest(connectionString);
 
                         System.GC.Collect();
@@ -45,8 +49,7 @@ namespace Parakeet.Data.Migrator
                 }
 
             }
-
-
+            
             return false;
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Parakeet.Data.Repositories;
 
 namespace Parakeet.Services
 {
@@ -13,6 +14,13 @@ namespace Parakeet.Services
 
     public class EmployeeService : IEmployeeService
     {
+        private IPeopleRepository _peopleRepository;
+
+        public EmployeeService(IPeopleRepository peopleRepository)
+        {
+            _peopleRepository = peopleRepository;
+        }
+
         private List<string> temp = new List<string>
         {
             "aa", "ab", "aac", "aad", "abc"
@@ -26,7 +34,15 @@ namespace Parakeet.Services
 
         public bool Save(Person person)
         {
-            throw new NotImplementedException();
+            if (person.Id != null)
+            {
+                _peopleRepository.Update(person);
+            }
+            else {
+                _peopleRepository.Add(person);
+            }
+
+            return person.Id != null;
         }
     }
 }

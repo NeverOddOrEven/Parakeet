@@ -155,6 +155,10 @@
       <Project>{68b36277-88b2-44ab-ac6a-d6c92113793b}</Project>
       <Name>Parakeet.Data.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Parakeet.Data.Repositories\Parakeet.Data.Repositories.csproj">
+      <Project>{c0afeb85-6273-4f86-9c7a-ae295b38b4e8}</Project>
+      <Name>Parakeet.Data.Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Parakeet.Services\Parakeet.Services.csproj">
       <Project>{047f738e-1c5d-4a7c-a6a2-6f92bbc396e4}</Project>
       <Name>Parakeet.Services</Name>

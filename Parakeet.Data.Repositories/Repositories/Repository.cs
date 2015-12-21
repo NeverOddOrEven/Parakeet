@@ -19,12 +19,14 @@ namespace Parakeet.Data.Repositories
         public int Add(T entity)
         {
             using (var session = BeginSession())
-            using (var transaction = session.Transaction)
             {
-                transaction.Begin();
-                session.Save(entity);
-                transaction.Commit();
-                return 0;
+                using (var transaction = session.Transaction)
+                {
+                    transaction.Begin();
+                    session.Save(entity);
+                    transaction.Commit();
+                    return 0;
+                }
             }
         }
 

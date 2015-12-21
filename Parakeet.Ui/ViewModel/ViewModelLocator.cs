@@ -12,6 +12,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using Parakeet.Data.Repositories;
 using Parakeet.Services;
 using Parakeet.Ui.Model;
 
@@ -39,7 +40,8 @@ namespace Parakeet.Ui.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
                 SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
-                SimpleIoc.Default.Register<IDatabaseFileService, DatabaseFileService>();
+                SimpleIoc.Default.Register<IConfigurationService, ConfigurationService>();
+                SimpleIoc.Default.Register<IPeopleRepository, PeopleRepository>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();

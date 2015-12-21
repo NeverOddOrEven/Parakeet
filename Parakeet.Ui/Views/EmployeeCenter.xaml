@@ -38,16 +38,21 @@
                 </WrapPanel>
                 <WrapPanel>
                     <Label Target="{Binding ElementName=HireDate}" Content="Hire Date:" Width="100"/>
-                    <DatePicker x:Name="HireDate" Text="{Binding Employee.HireDate}" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="HireDate" SelectedDate="{Binding Employee.HireDate,
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 </WrapPanel>
                 <WrapPanel>
                     <Label Target="{Binding ElementName=SeparationDate}" Content="Separation Date:" Width="100"/>
-                    <DatePicker x:Name="SeparationDate" Text="{Binding Employee.SeparationDate}" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="SeparationDate" SelectedDate="{Binding Employee.SeparationDate, 
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 </WrapPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" MinWidth="100" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Label Target="{Binding ElementName=EmployeeNotes}" Content="Notes:" VerticalAlignment="Top" />
                 <TextBox x:Name="EmployeeNotes" VerticalAlignment="Center" MinWidth="200" Margin="0,4,0,0" SpellCheck.IsEnabled="True" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MinHeight="75" MaxHeight="300" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Save" Command="{Binding SaveEmployeeCommand}"/>
             </StackPanel>
         </WrapPanel>
     </DockPanel>

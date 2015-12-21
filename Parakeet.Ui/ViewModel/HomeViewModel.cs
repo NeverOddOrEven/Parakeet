@@ -11,7 +11,7 @@ namespace Parakeet.Ui.ViewModel
     {
         internal static readonly Uri Uri = new Uri(@"..\Views\Home.xaml", UriKind.RelativeOrAbsolute);
 
-        private IDatabaseFileService _databaseFileService;
+        private IConfigurationService _configurationService;
 
         public RelayCommand CreateNewFileCommand { get; private set; }
         public RelayCommand OpenExistingFileCommand { get; private set; }
@@ -29,9 +29,9 @@ namespace Parakeet.Ui.ViewModel
         /// <summary>
         /// Initializes a new instance of the IntroductionViewModel class.
         /// </summary>
-        public HomeViewModel(IDatabaseFileService databaseFileService)
+        public HomeViewModel(IConfigurationService configurationService)
         {
-            _databaseFileService = databaseFileService;
+            _configurationService = configurationService;
 
             CreateNewFileCommand = new RelayCommand(() => {
                 var saveFileDialog = new SaveFileDialog();
@@ -59,7 +59,7 @@ namespace Parakeet.Ui.ViewModel
 
             SelectedFile = openFileDialog.SafeFileName;
 
-            _databaseFileService.OpenFile(openFileDialog.FileName);
+            var success = _configurationService.SetSavefilePath(openFileDialog.FileName, createIfFileDne: false);
         }
 
         private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
@@ -68,7 +68,7 @@ namespace Parakeet.Ui.ViewModel
 
             SelectedFile = saveFileDialog.SafeFileName;
 
-            _databaseFileService.CreateFile(saveFileDialog.FileName);
+            var success = _configurationService.SetSavefilePath(saveFileDialog.FileName, createIfFileDne: true);
         }
     }
 }

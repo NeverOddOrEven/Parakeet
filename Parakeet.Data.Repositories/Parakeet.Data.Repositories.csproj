@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="DatabaseFileManager.cs" />
     <Compile Include="Mappings\PersonMap.cs" />
     <Compile Include="Mappings\RoleMap.cs" />
     <Compile Include="NHibernateSessionHandler.cs" />
@@ -113,6 +114,10 @@
     <ProjectReference Include="..\Parakeet.Data.Entities\Parakeet.Data.Entities.csproj">
       <Project>{68b36277-88b2-44ab-ac6a-d6c92113793b}</Project>
       <Name>Parakeet.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Parakeet.Data.Migrator\Parakeet.Data.Migrator.csproj">
+      <Project>{228eb3a0-774c-4849-913f-6f1b0e9dfc91}</Project>
+      <Name>Parakeet.Data.Migrator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

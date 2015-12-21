@@ -12,14 +12,14 @@ namespace Parakeet.Data
 {
     public static class NHibernateSessionHandler
     {
-        private static bool IsSetForUnitTest = true;
+        private static bool IsSetForUnitTest = false;
 
         public static ISessionFactory SessionFactory { get { return _sessionFactory.Value; } }
         private static Lazy<ISessionFactory> _sessionFactory = new Lazy<ISessionFactory>(() =>
         {
             var connString = IsSetForUnitTest
-                ? "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\Parakeet.mdf\";Integrated Security=True"
-                : "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\UnitTest.mdf\";Integrated Security=True";
+                ? "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\UnitTest.mdf\";Integrated Security=True"
+                : DatabaseFileManager.Instance.ConnectionString;
 
             var sessionFactory = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connString))
