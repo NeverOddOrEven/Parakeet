@@ -16,7 +16,7 @@ namespace Parakeet.Data.Repositories
             _sessionFactory = sessionFactory;
         }
 
-        public int Add(T entity)
+        public T Add(T entity)
         {
             using (var session = BeginSession())
             {
@@ -25,7 +25,7 @@ namespace Parakeet.Data.Repositories
                     transaction.Begin();
                     session.Save(entity);
                     transaction.Commit();
-                    return 0;
+                    return entity;
                 }
             }
         }
@@ -35,7 +35,7 @@ namespace Parakeet.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace Parakeet.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public T Where(int id)
+        public T Where(long id)
         {
             throw new NotImplementedException();
         }

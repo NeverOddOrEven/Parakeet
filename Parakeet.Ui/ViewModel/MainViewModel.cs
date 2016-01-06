@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using Parakeet.Ui.Messages;
 using Parakeet.Ui.Model;
+using System;
 
 namespace Parakeet.Ui.ViewModel
 {
@@ -13,39 +14,25 @@ namespace Parakeet.Ui.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
-
-        /// <summary>
-        /// The <see cref="WelcomeTitle" /> property's name.
-        /// </summary>
+        
         public const string WelcomeTitlePropertyName = "WelcomeTitle";
-        public const string CounterPropertyName = "Counter";
+        public const string NavigationEnabledPropertyName = "NavigationEnabled";
 
+        private bool _navigationEnabled = false;
         private string _welcomeTitle = string.Empty;
-        private uint _counter = 0;
-        public uint Counter
+        
+        public bool NavigationEnabled
         {
-            get
-            {
-                return _counter;
-            }
+            get { return _navigationEnabled; }
             set
             {
-                if (_counter == value)
-                {
+                if (_navigationEnabled == value)
                     return;
-                }
-
-                _counter = value;
-                RaisePropertyChanged(CounterPropertyName);
-                IncrementByOneCmd.RaiseCanExecuteChanged();
+                Set(NavigationEnabledPropertyName, ref _navigationEnabled, value);
             }
         }
-        public RelayCommand IncrementByOneCmd { get; private set; }
 
-        /// <summary>
-        /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
+
         public string WelcomeTitle
         {
             get
@@ -63,6 +50,10 @@ namespace Parakeet.Ui.ViewModel
         /// </summary>
         public MainViewModel(IDataService dataService)
         {
+            MessengerInstance.Register(this, new Action<FileOpenedEventMessage>(x => {
+                NavigationEnabled = true;
+            }));
+
             _dataService = dataService;
             _dataService.GetData(
                 (item, error) =>
@@ -75,15 +66,6 @@ namespace Parakeet.Ui.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-
-            IncrementByOneCmd = new RelayCommand(() => Counter++, () => Counter % 2 == 0);
         }
-
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
-
-        ////    base.Cleanup();
-        ////}
     }
 }

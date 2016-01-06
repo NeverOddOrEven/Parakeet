@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Parakeet.Data.Entities;
 using Parakeet.Services;
 
-namespace HelloWorld.Design
+namespace Parakeet.Ui.Design
 {
-    internal class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         public List<Person> Find(string searchString)
         {

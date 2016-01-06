@@ -7,6 +7,7 @@ namespace Parakeet.Data
     public interface IDatabaseFileManager
     {
         bool OpenFile(string openFromFullpath, bool createFileIfDne);
+        bool HasConnectionString { get; }
         string ConnectionString { get; }
     }
 
@@ -17,18 +18,19 @@ namespace Parakeet.Data
         private static Lazy<IDatabaseFileManager> _databaseFileManager = null; // Lazy adds threadsafety for free; lazy is good!
         public static IDatabaseFileManager Instance { get
             {
-                if (_databaseFileManager == null)
-                    _databaseFileManager = new Lazy<IDatabaseFileManager>(() => new DatabaseFileManager());
                 return _databaseFileManager.Value;
             }
-            set
+            private set
             {
+                if (_databaseFileManager != null)
+                    throw new InvalidOperationException("The database file manager is already set. Opening a new one could cause data corruption.");
                 _databaseFileManager = new Lazy<IDatabaseFileManager>(() => value);
             }
         }
-
-        // Do not allow outside instantiations.
-        private DatabaseFileManager() { }
+        
+        public DatabaseFileManager() {
+            Instance = this;
+        }
 
         public string ConnectionString
         {
@@ -39,6 +41,14 @@ namespace Parakeet.Data
 
                 var dbName = Path.GetFileNameWithoutExtension(_fullPathToDatabase);
                 return GenerateDatabase.GetConnectionString(_fullPathToDatabase, dbName);
+            }
+        }
+
+        public bool HasConnectionString
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(_fullPathToDatabase);
             }
         }
 

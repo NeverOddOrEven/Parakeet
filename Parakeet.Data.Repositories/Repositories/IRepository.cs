@@ -6,11 +6,11 @@ namespace Parakeet.Data.Repositories
 {
     public interface IRepository<T> 
     {
-        int Add(T entity);
+        T Add(T entity);
         void Delete(T entity);
-        void Delete(int id);
+        void Delete(long id);
         T Update(T entity);
-        T Where(int id);
+        T Where(long id);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
     }
 }

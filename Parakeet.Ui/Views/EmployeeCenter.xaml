@@ -3,8 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HelloWorld.Views"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="HelloWorld.Views.Employee"
+      xmlns:local="clr-namespace:Parakeet.Views"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+      xmlns:Custom="http://www.galasoft.ch/mvvmlight" 
+      x:Class="Parakeet.Views.EmployeeCenter"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="553.2"
       Title="Employee Center"
@@ -47,12 +49,14 @@
                         Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 </WrapPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" MinWidth="100" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label Target="{Binding ElementName=EmployeeNotes}" Content="Notes:" VerticalAlignment="Top" />
-                <TextBox x:Name="EmployeeNotes" VerticalAlignment="Center" MinWidth="200" Margin="0,4,0,0" SpellCheck.IsEnabled="True" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MinHeight="75" MaxHeight="300" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Save" Command="{Binding SaveEmployeeCommand}"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" MinWidth="100" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Label Target="{Binding ElementName=EmployeeNotes}" Content="Notes:" VerticalAlignment="Top" />
+                    <TextBox x:Name="EmployeeNotes" VerticalAlignment="Center" MinWidth="200" Margin="0,4,5,0" SpellCheck.IsEnabled="True" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MinHeight="75" MaxHeight="300" HorizontalAlignment="Left" Text="dsfdsfd"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                    <Button Content="Save" Command="{Binding SaveEmployeeCommand}"/>
+                </StackPanel>
             </StackPanel>
         </WrapPanel>
     </DockPanel>

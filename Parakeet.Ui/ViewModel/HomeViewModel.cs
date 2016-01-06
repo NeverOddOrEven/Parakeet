@@ -33,6 +33,8 @@ namespace Parakeet.Ui.ViewModel
         {
             _configurationService = configurationService;
 
+            selectedFile = _configurationService.IsFileLoaded() ? "hi" : "";
+
             CreateNewFileCommand = new RelayCommand(() => {
                 var saveFileDialog = new SaveFileDialog();
                 saveFileDialog.AddExtension = true;
@@ -60,6 +62,9 @@ namespace Parakeet.Ui.ViewModel
             SelectedFile = openFileDialog.SafeFileName;
 
             var success = _configurationService.SetSavefilePath(openFileDialog.FileName, createIfFileDne: false);
+
+            if (success)
+                MessengerInstance.Send(new Messages.FileOpenedEventMessage());
         }
 
         private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
@@ -69,6 +74,9 @@ namespace Parakeet.Ui.ViewModel
             SelectedFile = saveFileDialog.SafeFileName;
 
             var success = _configurationService.SetSavefilePath(saveFileDialog.FileName, createIfFileDne: true);
+
+            if (success)
+                MessengerInstance.Send(new Messages.FileOpenedEventMessage());
         }
     }
 }

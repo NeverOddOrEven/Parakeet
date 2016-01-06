@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Parakeet.Services;
 using Parakeet.Ui.Mapper;
 using Parakeet.Ui.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -93,7 +94,12 @@ namespace Parakeet.Ui.ViewModel
 
         private void InitializeView()
         {
-            Employee = new Employee();
+            Employee = new Employee
+            {
+                HireDate = DateTime.Now,
+                SeparationDate = null,
+
+            };
             SearchField = string.Empty;
 
             SearchForEmployeeCommand = new RelayCommand(

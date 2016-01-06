@@ -13,8 +13,8 @@ namespace Parakeet.Ui.Model
         public long? Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime HireDate { get; set; }
-        public DateTime SeparationDate { get; set; }
+        public DateTime? HireDate { get; set; }
+        public DateTime? SeparationDate { get; set; }
 
         public Position Position { get; set; }
     }

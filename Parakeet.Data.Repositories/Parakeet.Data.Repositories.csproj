@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
     <Compile Include="DatabaseFileManager.cs" />
     <Compile Include="Mappings\PersonMap.cs" />
     <Compile Include="Mappings\RoleMap.cs" />

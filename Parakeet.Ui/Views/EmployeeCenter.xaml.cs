@@ -1,13 +1,13 @@
 ﻿using System.Windows.Controls;
 
-namespace HelloWorld.Views
+namespace Parakeet.Views
 {
     /// <summary>
     /// Interaction logic for Employee.xaml
     /// </summary>
-    public partial class Employee : Page
+    public partial class EmployeeCenter : Page
     {
-        public Employee()
+        public EmployeeCenter()
         {
             InitializeComponent();
         }

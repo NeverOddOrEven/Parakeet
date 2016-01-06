@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
-namespace HelloWorld
+namespace Parakeet
 {
     /// <summary>
     /// Interaction logic for App.xaml
