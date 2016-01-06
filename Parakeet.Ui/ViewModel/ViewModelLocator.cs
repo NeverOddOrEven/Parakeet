@@ -39,20 +39,23 @@ namespace Parakeet.Ui.ViewModel
                 SimpleIoc.Default.Register<IDatabaseFileManager, Design.DatabaseFileManager>();
                 SimpleIoc.Default.Register<IConfigurationService, Design.ConfigurationService>();
                 SimpleIoc.Default.Register<IPeopleRepository, Design.PeopleRepository>();
-                
+                SimpleIoc.Default.Register<IRoleService, Design.RoleService>();
             }
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
                 SimpleIoc.Default.Register<IDatabaseFileManager, DatabaseFileManager>();
                 SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
+                SimpleIoc.Default.Register<IRoleService, RoleService>();
                 SimpleIoc.Default.Register<IConfigurationService, ConfigurationService>();
                 SimpleIoc.Default.Register<IPeopleRepository, PeopleRepository>();
+                SimpleIoc.Default.Register<IRoleRepository, RoleRepository>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeeCenterViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
+            SimpleIoc.Default.Register<RoleCenterViewModel>();
         }
 
         /// <summary>
@@ -94,6 +97,20 @@ namespace Parakeet.Ui.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<HomeViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the RoleCenter property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public RoleCenterViewModel RoleCenter
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RoleCenterViewModel>();
             }
         }
 

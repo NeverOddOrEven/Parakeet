@@ -7,7 +7,9 @@
       xmlns:local="clr-namespace:Parakeet.Ui.Views"
       xmlns:helpers="clr-namespace:Parakeet.Ui.Views.Resources"
       mc:Ignorable="d"
-      Title="RoleCenter">
+      d:DesignHeight="300" d:DesignWidth="553.2"
+      Title="Role Center"
+      DataContext="{Binding RoleCenter, Source={StaticResource Locator}}">
 
     <Page.Resources>
         <helpers:NullToVisibilityConverter x:Key="NullToVisibleConverter" />
