@@ -15,7 +15,6 @@ using Microsoft.Practices.ServiceLocation;
 using Parakeet.Data;
 using Parakeet.Data.Repositories;
 using Parakeet.Services;
-using Parakeet.Ui.Model;
 
 namespace Parakeet.Ui.ViewModel
 {
@@ -34,16 +33,15 @@ namespace Parakeet.Ui.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
                 SimpleIoc.Default.Register<IEmployeeService, Design.EmployeeService>();
                 SimpleIoc.Default.Register<IDatabaseFileManager, Design.DatabaseFileManager>();
+                SimpleIoc.Default.Register<IRoleService, Design.RoleService>();
                 SimpleIoc.Default.Register<IConfigurationService, Design.ConfigurationService>();
                 SimpleIoc.Default.Register<IPeopleRepository, Design.PeopleRepository>();
-                SimpleIoc.Default.Register<IRoleService, Design.RoleService>();
+                SimpleIoc.Default.Register<IRoleRepository, Design.RoleRepository>();
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, DataService>();
                 SimpleIoc.Default.Register<IDatabaseFileManager, DatabaseFileManager>();
                 SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
                 SimpleIoc.Default.Register<IRoleService, RoleService>();

@@ -14,7 +14,7 @@
     <Page.Resources>
         <helpers:NullToVisibilityConverter x:Key="NullToVisibleConverter" />
     </Page.Resources>
-    
+
     <DockPanel x:Name="RolePage">
         <StackPanel DockPanel.Dock="Top" Margin="5">
             <Label Target="{Binding ElementName=RoleSearchComboBox}" Content="Find Role:"/>
@@ -31,6 +31,15 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </StackPanel>
-        <WrapPanel Visibility="{Binding SelectedRole, Converter={StaticResource NullToVisibleConverter}}"/>
+        <WrapPanel x:Name="wrapPanel" Visibility="{Binding SelectedRole, Converter={StaticResource NullToVisibleConverter}}">
+            <StackPanel Orientation="Horizontal" Width="{Binding ActualWidth, ElementName=wrapPanel}">
+                <Label x:Name="label" Content="Label" HorizontalAlignment="Left"/>
+                <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="TextBox" Margin="0,0,68.21,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="label1" Content="Label" HorizontalAlignment="Left"/>
+                <TextBox x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="TextBox" Margin="0,0,68.21,0"/>
+            </StackPanel>
+        </WrapPanel>
     </DockPanel>
 </Page>

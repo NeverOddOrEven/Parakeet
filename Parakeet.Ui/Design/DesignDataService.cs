@@ -1,4 +1,4 @@
-﻿using Parakeet.Ui.Model;
+﻿using Parakeet.Services.Models;
 using System;
 
 namespace Parakeet.Ui.Design

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Parakeet.Ui.Model
+namespace Parakeet.Services.Models
 {
     [Serializable]
     public class Position
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
+        public long? Id { get; set; }
+        public string Description { get; set; }
         public string Title { get; set; }
     }
 }

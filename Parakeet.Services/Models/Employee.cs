@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Parakeet.Ui.Model
+namespace Parakeet.Services.Models
 {
     [Serializable]
     public class Employee
     {
         public Employee()
         {
-            Position = new Position();
+            Positions = new List<Position>(); 
         }
 
         public long? Id { get; set; }
@@ -15,7 +16,8 @@ namespace Parakeet.Ui.Model
         public string LastName { get; set; }
         public DateTime? HireDate { get; set; }
         public DateTime? SeparationDate { get; set; }
-
-        public Position Position { get; set; }
+        
+        public IList<Position> Positions { get; set; }
+        
     }
 }

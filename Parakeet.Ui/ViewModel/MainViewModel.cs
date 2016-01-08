@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using Parakeet.Ui.Messages;
-using Parakeet.Ui.Model;
 using System;
 
 namespace Parakeet.Ui.ViewModel
@@ -13,7 +12,7 @@ namespace Parakeet.Ui.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        //private readonly IDataService _dataService;
         
         public const string WelcomeTitlePropertyName = "WelcomeTitle";
         public const string NavigationEnabledPropertyName = "NavigationEnabled";
@@ -48,24 +47,24 @@ namespace Parakeet.Ui.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(/*IDataService dataService*/)
         {
             MessengerInstance.Register(this, new Action<FileOpenedEventMessage>(x => {
                 NavigationEnabled = true;
             }));
 
-            _dataService = dataService;
-            _dataService.GetData(
-                (item, error) =>
-                {
-                    if (error != null)
-                    {
-                        // Report error here
-                        return;
-                    }
-
-                    WelcomeTitle = item.Title;
-                });
+            //_dataService = dataService;
+            //_dataService.GetData(
+            //    (item, error) =>
+            //    {
+            //        if (error != null)
+            //        {
+            //            // Report error here
+            //            return;
+            //        }
+            //
+            //        WelcomeTitle = item.Title;
+            //    });
         }
     }
 }

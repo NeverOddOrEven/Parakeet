@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Parakeet.Services;
+using Parakeet.Services.Models;
 using Parakeet.Ui.Mapper;
-using Parakeet.Ui.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

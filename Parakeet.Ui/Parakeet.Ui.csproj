@@ -78,16 +78,14 @@
     </ApplicationDefinition>
     <Compile Include="Design\ConfigurationService.cs" />
     <Compile Include="Design\DatabaseFileManager.cs" />
-    <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Design\EmployeeService.cs" />
     <Compile Include="Design\PeopleRepository.cs" />
     <Compile Include="Design\Repository.cs" />
     <Compile Include="Design\RoleService.cs" />
-    <Compile Include="Mapper\RoleMapper.cs" />
-    <Compile Include="Mapper\EmployeeMapper.cs" />
+    <Compile Include="Mappers\RoleMapper.cs" />
+    <Compile Include="Mappers\EmployeeMapper.cs" />
     <Compile Include="Messages\FileOpenedEventMessage.cs" />
-    <Compile Include="Model\DataItem.cs" />
-    <Compile Include="Model\Role.cs" />
+    <Compile Include="Design\RoleRepository.cs" />
     <Compile Include="ViewModel\EmployeeCenterViewModel.cs" />
     <Compile Include="ViewModel\RoleCenterViewModel.cs" />
     <Compile Include="Views\EmployeeCenter.xaml.cs">
@@ -96,15 +94,12 @@
     <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\Employee.cs" />
-    <Compile Include="Model\Position.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\Resources\NullToVisibilityConverter.cs" />
-    <Compile Include="Views\RoleCenter.xaml.cs">
-      <DependentUpon>RoleCenter.xaml</DependentUpon>
+    <Compile Include="Views\PositionCenter.xaml.cs">
+      <DependentUpon>PositionCenter.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\EmployeeCenter.xaml">
       <SubType>Designer</SubType>
@@ -134,7 +129,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\RoleCenter.xaml">
+    <Page Include="Views\PositionCenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

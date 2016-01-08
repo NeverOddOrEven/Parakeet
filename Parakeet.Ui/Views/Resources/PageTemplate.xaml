@@ -19,7 +19,7 @@
                     <Hyperlink NavigateUri="..\EmployeeCenter.xaml">Employee Center</Hyperlink>
                 </Label>
                 <Label>
-                    <Hyperlink NavigateUri="..\RoleCenter.xaml">Role Center</Hyperlink>
+                    <Hyperlink NavigateUri="..\PositionCenter.xaml">Position Center</Hyperlink>
                 </Label>
             </StackPanel>
             

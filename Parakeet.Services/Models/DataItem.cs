@@ -1,4 +1,4 @@
-﻿namespace Parakeet.Ui
+﻿namespace Parakeet.Services.Models
 {
     public class DataItem
     {

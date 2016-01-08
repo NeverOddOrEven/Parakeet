@@ -1,7 +1,7 @@
 ﻿using Parakeet.Data.Entities;
-using Parakeet.Ui.Model;
+using Parakeet.Services.Models;
 
-namespace Parakeet.Ui.Mapper
+namespace Parakeet.Services.Mappers
 {
     public static class EmployeeMapper
     {
