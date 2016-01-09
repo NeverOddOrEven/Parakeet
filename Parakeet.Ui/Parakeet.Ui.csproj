@@ -87,7 +87,7 @@
     <Compile Include="Messages\FileOpenedEventMessage.cs" />
     <Compile Include="Design\RoleRepository.cs" />
     <Compile Include="ViewModel\EmployeeCenterViewModel.cs" />
-    <Compile Include="ViewModel\RoleCenterViewModel.cs" />
+    <Compile Include="ViewModel\PositionCenterViewModel.cs" />
     <Compile Include="Views\EmployeeCenter.xaml.cs">
       <DependentUpon>EmployeeCenter.xaml</DependentUpon>
     </Compile>

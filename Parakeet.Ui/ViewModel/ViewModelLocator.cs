@@ -35,7 +35,7 @@ namespace Parakeet.Ui.ViewModel
             {
                 SimpleIoc.Default.Register<IEmployeeService, Design.EmployeeService>();
                 SimpleIoc.Default.Register<IDatabaseFileManager, Design.DatabaseFileManager>();
-                SimpleIoc.Default.Register<IRoleService, Design.RoleService>();
+                SimpleIoc.Default.Register<IPositionService, Design.PositionService>();
                 SimpleIoc.Default.Register<IConfigurationService, Design.ConfigurationService>();
                 SimpleIoc.Default.Register<IPeopleRepository, Design.PeopleRepository>();
                 SimpleIoc.Default.Register<IRoleRepository, Design.RoleRepository>();
@@ -44,7 +44,7 @@ namespace Parakeet.Ui.ViewModel
             {
                 SimpleIoc.Default.Register<IDatabaseFileManager, DatabaseFileManager>();
                 SimpleIoc.Default.Register<IEmployeeService, EmployeeService>();
-                SimpleIoc.Default.Register<IRoleService, RoleService>();
+                SimpleIoc.Default.Register<IPositionService, PositionService>();
                 SimpleIoc.Default.Register<IConfigurationService, ConfigurationService>();
                 SimpleIoc.Default.Register<IPeopleRepository, PeopleRepository>();
                 SimpleIoc.Default.Register<IRoleRepository, RoleRepository>();
@@ -53,7 +53,7 @@ namespace Parakeet.Ui.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeeCenterViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
-            SimpleIoc.Default.Register<RoleCenterViewModel>();
+            SimpleIoc.Default.Register<PositionCenterViewModel>();
         }
 
         /// <summary>
@@ -104,11 +104,11 @@ namespace Parakeet.Ui.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public RoleCenterViewModel RoleCenter
+        public PositionCenterViewModel PositionCenter
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<RoleCenterViewModel>();
+                return ServiceLocator.Current.GetInstance<PositionCenterViewModel>();
             }
         }
 

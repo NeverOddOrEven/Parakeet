@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Parakeet.Data.Entities;
 using System.Collections.Generic;
-using Parakeet.Services;
+using System;
 using Parakeet.Services.Models;
 
-namespace Parakeet.Ui.Design
+namespace Parakeet.Services
 {
+    public interface IPositionService
+    {
+        List<Position> Find(string searchString);
+        bool Save(Position person);
+    }
+
     public class PositionService : IPositionService
     {
         public List<Position> Find(string searchString)
@@ -12,7 +18,7 @@ namespace Parakeet.Ui.Design
             throw new NotImplementedException();
         }
 
-        public bool Save(Position person)
+        public bool Save(Position position)
         {
             throw new NotImplementedException();
         }

@@ -14,7 +14,7 @@
 
     <DockPanel x:Name="EmployeePage">
         <StackPanel DockPanel.Dock="Top" Margin="5">
-            <Label Target="{Binding ElementName=EmployeeSearchComboBox}" Content="Find Employee:"/>
+            <Label Target="{Binding ElementName=EmployeeSearchComboBox}" Content="Find Employee:" Margin="-5,0,0,0"/>
             <ComboBox x:Name="EmployeeSearchComboBox"
                       IsEditable="True"
                       ItemsSource="{Binding EmployeesFound}"
