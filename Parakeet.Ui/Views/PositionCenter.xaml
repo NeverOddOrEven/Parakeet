@@ -12,27 +12,24 @@
       Title="Role Center"
       DataContext="{Binding PositionCenter, Source={StaticResource Locator}}">
 
-    <Page.Resources>
-        <helpers:NullToVisibilityConverter x:Key="NullToVisibleConverter" />
-    </Page.Resources>
-
     <DockPanel x:Name="PositionPage">
         <StackPanel DockPanel.Dock="Top" Margin="5">
-            <Label Target="{Binding ElementName=RoleSearchComboBox}" Content="Find Role:" HorizontalAlignment="Left" Margin="-5,0,0,0"/>
+            <Label Target="{Binding ElementName=PositionSearchComboBox}" Content="Find Role:" HorizontalAlignment="Left" Margin="-5,0,0,0"/>
             <ComboBox x:Name="PositionSearchComboBox"
                       IsEditable="True"
-                      ItemsSource="{Binding RolesFound}"
-                      SelectedItem="{Binding SelectedRole}"
+                      ItemsSource="{Binding PositionsFound}"
+                      DisplayMemberPath="Title"
+                      SelectedItem="{Binding SelectedPosition}"
                       Text="{Binding SearchField, UpdateSourceTrigger=PropertyChanged}"
-                      IsDropDownOpen="{Binding ShowMatchingRoles, UpdateSourceTrigger=PropertyChanged}">
+                      IsDropDownOpen="{Binding ShowMatchingPositions, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyUp">
-                        <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=SearchForRoleCommand}" PassEventArgsToCommand="True"/>
+                        <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=SearchForPositionCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
         </StackPanel>
-        <WrapPanel x:Name="wrapPanel" Visibility="{Binding SelectedRole, Converter={StaticResource NullToVisibleConverter}}" >
+        <WrapPanel x:Name="wrapPanel" >
             <DockPanel LastChildFill="True" Width="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <Label x:Name="nameLbl" Width="75"  Content="Label" HorizontalAlignment="Left" Target="{Binding ElementName=nameTxt}"/>
                 <TextBox x:Name="nameTxt" Height="23" TextWrapping="Wrap" Text="{Binding Position.Title}" Margin="0,0,5,0"/>
@@ -42,7 +39,8 @@
                 <TextBox x:Name="descriptionTxt" Height="23" TextWrapping="Wrap" Text="{Binding Position.Description}" Margin="0,0,5,0"/>
             </DockPanel>
             <DockPanel FlowDirection="RightToLeft" Width="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Button x:Name="button" Content="Button" Width="75" Padding="3" Margin="5,5,5,5" />
+                <Button x:Name="cancelBtn" Content="Cancel" Width="75" Padding="3" Margin="5,5,2,5" IsCancel="True" />
+                <Button x:Name="saveBtn" Content="Save" Width="75" Margin="2,5"/>
                 <Canvas></Canvas>
             </DockPanel>
         </WrapPanel>

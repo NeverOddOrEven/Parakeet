@@ -14,7 +14,18 @@ namespace Parakeet.Services.Mappers
                 LastName = employee.LastName,
                 HireDate = employee.HireDate,
                 SeparationDate = employee.SeparationDate,
-                
+            };
+        }
+
+        public static Employee ToModel(this Person person)
+        {
+            return new Employee
+            {
+                Id = person.Id,
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                SeparationDate = person.SeparationDate,
+                HireDate = person.HireDate
             };
         }
     }

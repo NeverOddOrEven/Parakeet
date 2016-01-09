@@ -15,7 +15,11 @@ namespace Parakeet.Services
     {
         public List<Position> Find(string searchString)
         {
-            throw new NotImplementedException();
+            return new List<Position>()
+            {
+                new Position {Title="Test1", Description="Test1Description" },
+                new Position {Title="Test2", Description="Test2Description" },
+            };
         }
 
         public bool Save(Position position)

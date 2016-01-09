@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Parakeet.Data.Repositories;
+using Parakeet.Services.Models;
+using Parakeet.Services.Mappers;
 
 namespace Parakeet.Services
 {
     public interface IEmployeeService
     {
-        List<Person> Find(string searchString);
-        bool Save(Person person);
+        List<Employee> Find(string searchString);
+        bool Save(Employee person);
     }
 
     public class EmployeeService : IEmployeeService
@@ -21,19 +23,20 @@ namespace Parakeet.Services
             _peopleRepository = peopleRepository;
         }
 
-        private List<string> temp = new List<string>
+        public List<Employee> Find(string searchString)
         {
-            "aa", "ab", "aac", "aad", "abc"
-        };
+            var firstNameMatches = _peopleRepository.Where(x => x.FirstName.Contains(searchString));
+            var lastNameMatches = _peopleRepository.Where(x => x.LastName.Contains(searchString));
 
-        public List<Person> Find(string searchString)
-        {
-            return temp.Where(x => x.Contains(searchString))
-                       .Select(x => new Person {FirstName = x}).ToList();
+            var searchResults = firstNameMatches.Concat(lastNameMatches).Select(EmployeeMapper.ToModel);
+
+            return searchResults.ToList();
         }
 
-        public bool Save(Person person)
+        public bool Save(Employee employee)
         {
+            var person = EmployeeMapper.ToEntity(employee);
+
             if (person.Id != null)
             {
                 _peopleRepository.Update(person);

@@ -82,8 +82,6 @@
     <Compile Include="Design\PeopleRepository.cs" />
     <Compile Include="Design\Repository.cs" />
     <Compile Include="Design\RoleService.cs" />
-    <Compile Include="Mappers\RoleMapper.cs" />
-    <Compile Include="Mappers\EmployeeMapper.cs" />
     <Compile Include="Messages\FileOpenedEventMessage.cs" />
     <Compile Include="Design\RoleRepository.cs" />
     <Compile Include="ViewModel\EmployeeCenterViewModel.cs" />

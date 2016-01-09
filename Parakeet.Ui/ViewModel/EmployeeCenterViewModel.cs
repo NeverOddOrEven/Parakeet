@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using Parakeet.Services;
 using Parakeet.Services.Models;
-using Parakeet.Ui.Mapper;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -113,7 +112,7 @@ namespace Parakeet.Ui.ViewModel
             );
 
             SaveEmployeeCommand = new RelayCommand(
-                () => _employeeService.Save(Employee.ToEntity()),
+                () => _employeeService.Save(Employee),
                 () => true
             );
         }

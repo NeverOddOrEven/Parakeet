@@ -117,6 +117,12 @@ namespace Parakeet.Ui.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+            SimpleIoc.Default.Unregister<IDatabaseFileManager>();
+            SimpleIoc.Default.Unregister<IEmployeeService>();
+            SimpleIoc.Default.Unregister<IPositionService>();
+            SimpleIoc.Default.Unregister<IConfigurationService>();
+            SimpleIoc.Default.Unregister<IPeopleRepository>();
+            SimpleIoc.Default.Unregister<IRoleRepository>();
         }
     }
 }
