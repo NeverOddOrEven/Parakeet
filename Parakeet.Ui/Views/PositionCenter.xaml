@@ -20,7 +20,7 @@
                       ItemsSource="{Binding PositionsFound}"
                       DisplayMemberPath="Title"
                       SelectedItem="{Binding SelectedPosition}"
-                      Text="{Binding SearchField, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding SearchField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       IsDropDownOpen="{Binding ShowMatchingPositions, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyUp">

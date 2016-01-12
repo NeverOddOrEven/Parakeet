@@ -51,19 +51,12 @@ namespace Parakeet.Ui.ViewModel
             set { Set("SelectedPosition", ref _selectedPosition, value); }
         }
 
-        private Position _position;
-        public Position Position
-        {
-            get { return _position ?? SelectedPosition; }
-            set { _position = value; }
-        }
-
         private string _searchField;
         public string SearchField
         {
             get
             {
-                if (SelectedPosition == null && _searching == false)
+                if (SelectedPosition.Id == null && _searching == false)
                     return "Add new role...";
 
                 return _searchField;
@@ -83,7 +76,7 @@ namespace Parakeet.Ui.ViewModel
 
         private void InitializeView()
         {
-            _position = null;
+            SelectedPosition = new Position();
 
             SearchForPositionCommand = new RelayCommand(() =>
             {
@@ -95,21 +88,26 @@ namespace Parakeet.Ui.ViewModel
             {
                 _searching = true;
                 SearchField = "";
+                SelectedPosition = new Position();
             });
 
             OnExitSearch = new RelayCommand(() =>
             {
+                if (SelectedPosition == null)
+                    _searching = false;
+
                 _searching = false;
             });
 
             SavePosition = new RelayCommand(() =>
             {
+                _positionService.Save(SelectedPosition);
                 Console.WriteLine("");
             });
 
             ClearPosition = new RelayCommand(() =>
             {
-                SelectedPosition = null;
+                SelectedPosition = new Position();
             });
         }
     }

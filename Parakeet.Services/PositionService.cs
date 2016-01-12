@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System;
 using Parakeet.Services.Models;
+using Parakeet.Data.Repositories;
+using Parakeet.Services.Mappers;
+using System.Linq;
 
 namespace Parakeet.Services
 {
@@ -13,18 +16,32 @@ namespace Parakeet.Services
 
     public class PositionService : IPositionService
     {
+        private IRoleRepository _roleRepository;
+
+        public PositionService(IRoleRepository roleRepository)
+        {
+            _roleRepository = roleRepository;
+        }
+
         public List<Position> Find(string searchString)
         {
-            return new List<Position>()
-            {
-                new Position {Title="Test1", Description="Test1Description" },
-                new Position {Title="Test2", Description="Test2Description" },
-            };
+            var results = _roleRepository.Where(x => x.Name.Contains(searchString));
+
+            return results.Select(PositionMapper.ToModel).ToList();
         }
 
         public bool Save(Position position)
         {
-            throw new NotImplementedException();
+            var entity = PositionMapper.ToEntity(position);
+
+            if (entity.Id != null)
+            {
+                _roleRepository.Update(entity);
+                return true;
+            }
+
+            _roleRepository.Add(entity);
+            return true;
         }
     }
 }

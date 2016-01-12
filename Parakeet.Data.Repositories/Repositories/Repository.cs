@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Parakeet.Data.Repositories
 {
@@ -25,7 +26,6 @@ namespace Parakeet.Data.Repositories
                     transaction.Begin();
                     session.Save(entity);
                     transaction.Commit();
-
                     return entity;
                 }
             }
@@ -63,7 +63,14 @@ namespace Parakeet.Data.Repositories
 
         public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            IQueryable<T> results;
+
+            using (var session = BeginSession())
+            {
+                results = session.Query<T>().Where(predicate).ToList().AsQueryable();
+            }
+
+            return results;
         }
 
         protected ISession BeginSession()
