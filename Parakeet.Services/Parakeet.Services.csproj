@@ -45,6 +45,7 @@
     <Compile Include="Mappers\EmployeeMapper.cs" />
     <Compile Include="Mappers\RoleMapper.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Extensions\Position.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PositionService.cs" />

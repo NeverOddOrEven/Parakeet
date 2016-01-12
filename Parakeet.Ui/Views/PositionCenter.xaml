@@ -26,21 +26,27 @@
                     <i:EventTrigger EventName="KeyUp">
                         <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=SearchForPositionCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="GotKeyboardFocus">
+                        <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=OnEnterSearch}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="LostKeyboardFocus">
+                        <Custom:EventToCommand Command="{Binding Mode=TwoWay, Path=OnExitSearch}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
         </StackPanel>
         <WrapPanel x:Name="wrapPanel" >
             <DockPanel LastChildFill="True" Width="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <Label x:Name="nameLbl" Width="75"  Content="Label" HorizontalAlignment="Left" Target="{Binding ElementName=nameTxt}"/>
-                <TextBox x:Name="nameTxt" Height="23" TextWrapping="Wrap" Text="{Binding Position.Title}" Margin="0,0,5,0"/>
+                <TextBox x:Name="nameTxt" Height="23" TextWrapping="Wrap" Text="{Binding SelectedPosition.Title}" Margin="0,0,5,0"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Width="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <Label x:Name="descriptionLbl" Width="75"  Content="Description" HorizontalAlignment="Left" Target="{Binding ElementName=descriptionTxt}"/>
-                <TextBox x:Name="descriptionTxt" Height="23" TextWrapping="Wrap" Text="{Binding Position.Description}" Margin="0,0,5,0"/>
+                <TextBox x:Name="descriptionTxt" Height="23" TextWrapping="Wrap" Text="{Binding SelectedPosition.Description}" Margin="0,0,5,0"/>
             </DockPanel>
             <DockPanel FlowDirection="RightToLeft" Width="{Binding ActualWidth, ElementName=wrapPanel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Button x:Name="cancelBtn" Content="Cancel" Width="75" Padding="3" Margin="5,5,2,5" IsCancel="True" />
-                <Button x:Name="saveBtn" Content="Save" Width="75" Margin="2,5"/>
+                <Button x:Name="cancelBtn" Content="Cancel" Width="75" Padding="3" Margin="5,5,2,5" IsCancel="True" Command="{Binding ClearPosition}"/>
+                <Button x:Name="saveBtn" Content="Save" Width="75" Margin="2,5" Command="{Binding SavePosition}"/>
                 <Canvas></Canvas>
             </DockPanel>
         </WrapPanel>

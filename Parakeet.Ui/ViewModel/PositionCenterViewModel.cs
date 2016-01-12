@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Parakeet.Services;
 using Parakeet.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -11,9 +12,13 @@ namespace Parakeet.Ui.ViewModel
     {
         private IPositionService _positionService;
 
+        private bool _searching = false; 
+
         public RelayCommand SearchForPositionCommand { get; set; }
-        public RelayCommand SavePositionCommand { get; set; }
-        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand OnEnterSearch { get; set; }
+        public RelayCommand OnExitSearch { get; set; }
+        public RelayCommand SavePosition { get; set; }
+        public RelayCommand ClearPosition { get; set; }
 
         private bool _showMatchingPositions;
         public bool ShowMatchingPositions
@@ -39,10 +44,17 @@ namespace Parakeet.Ui.ViewModel
             }
         }
 
+        private Position _selectedPosition;
+        public Position SelectedPosition
+        {
+            get { return _selectedPosition; }
+            set { Set("SelectedPosition", ref _selectedPosition, value); }
+        }
+
         private Position _position;
         public Position Position
         {
-            get { return _position; }
+            get { return _position ?? SelectedPosition; }
             set { _position = value; }
         }
 
@@ -51,6 +63,9 @@ namespace Parakeet.Ui.ViewModel
         {
             get
             {
+                if (SelectedPosition == null && _searching == false)
+                    return "Add new role...";
+
                 return _searchField;
             }
             set
@@ -68,17 +83,34 @@ namespace Parakeet.Ui.ViewModel
 
         private void InitializeView()
         {
-            _position = new Position
-            {
-                Title = "Test",
-                Description = "Test Description"
-            };
+            _position = null;
 
             SearchForPositionCommand = new RelayCommand(() =>
             {
                 var found = _positionService.Find(SearchField);
                 PositionsFound = new ObservableCollection<Position>(found);
             }, () => { return SearchField.Length > 1; });
+
+            OnEnterSearch = new RelayCommand(() =>
+            {
+                _searching = true;
+                SearchField = "";
+            });
+
+            OnExitSearch = new RelayCommand(() =>
+            {
+                _searching = false;
+            });
+
+            SavePosition = new RelayCommand(() =>
+            {
+                Console.WriteLine("");
+            });
+
+            ClearPosition = new RelayCommand(() =>
+            {
+                SelectedPosition = null;
+            });
         }
     }
 }

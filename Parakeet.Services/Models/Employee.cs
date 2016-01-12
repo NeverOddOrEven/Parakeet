@@ -18,6 +18,5 @@ namespace Parakeet.Services.Models
         public DateTime? SeparationDate { get; set; }
         
         public IList<Position> Positions { get; set; }
-        
     }
 }

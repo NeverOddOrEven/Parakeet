@@ -25,6 +25,7 @@ namespace Parakeet.Data.Repositories
                     transaction.Begin();
                     session.Save(entity);
                     transaction.Commit();
+
                     return entity;
                 }
             }
@@ -42,7 +43,17 @@ namespace Parakeet.Data.Repositories
 
         public T Update(T entity)
         {
-            throw new NotImplementedException();
+            using (var session = BeginSession())
+            {
+                using (var transaction = session.Transaction)
+                {
+                    transaction.Begin();
+                    session.Update(entity);
+                    transaction.Commit();
+
+                    return entity;
+                }
+            }
         }
 
         public T Where(long id)
