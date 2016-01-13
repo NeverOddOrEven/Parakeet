@@ -2,18 +2,14 @@
 using GalaSoft.MvvmLight.Command;
 using Parakeet.Services;
 using Parakeet.Services.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Linq;
 
 namespace Parakeet.Ui.ViewModel
 {
     public class PositionCenterViewModel : ViewModelBase
     {
         private IPositionService _positionService;
-
-        private bool _searching = false; 
 
         public RelayCommand SearchForPositionCommand { get; set; }
         public RelayCommand ExpandComboBoxCommand { get; set; }
@@ -40,7 +36,7 @@ namespace Parakeet.Ui.ViewModel
             get { return _positionsFound; }
             set
             {
-                Set(ref _positionsFound, value);
+                _positionsFound = value;
             }
         }
 
@@ -81,19 +77,31 @@ namespace Parakeet.Ui.ViewModel
         {
             SearchForPositionCommand = new RelayCommand(() =>
             {
-                if (SearchField.Length > 1)
+                var found = _positionService.Find(SearchField);
+
+                if (PositionsFound.Count > 0)
                 {
-                    var found = _positionService.Find(SearchField);
-                    PositionsFound = new ObservableCollection<Position>(found);
+                    var index = 0;
+                    do
+                    {
+                        if (PositionsFound[index] == SelectedPosition)
+                            index++;
+                        else
+                            PositionsFound.RemoveAt(index);
+                    } while (index < PositionsFound.Count);
+                }
+
+                foreach(var position in found)
+                {
+                    if (position.Id != SelectedPosition.Id)
+                        PositionsFound.Add(position);
                 }
             }, () => { return true; });
 
             SavePositionCommand = new RelayCommand(
                 () => {
                     _positionService.Save(SelectedPosition);
-                    
-                    if (PositionsFound != null)
-                        PositionsFound.Clear();
+                    SearchField = SelectedPosition.Title;
                 }
                 ,() =>
                 {
@@ -107,9 +115,7 @@ namespace Parakeet.Ui.ViewModel
             {
                 SelectedPosition = new Position();
                 SearchField = "";
-                if (PositionsFound != null)
-                    PositionsFound.Clear();
-                SearchForPositionCommand.RaiseCanExecuteChanged();
+                PositionsFound.Clear();
             });
 
             UpdateCanSaveCommand = new RelayCommand(() =>
@@ -123,6 +129,7 @@ namespace Parakeet.Ui.ViewModel
             });
 
             SelectedPosition = new Position();
+            PositionsFound = new ObservableCollection<Position>();
         }
     }
 }
