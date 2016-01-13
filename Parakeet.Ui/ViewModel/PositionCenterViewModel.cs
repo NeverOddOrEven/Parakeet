@@ -5,6 +5,7 @@ using Parakeet.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Parakeet.Ui.ViewModel
 {
@@ -15,10 +16,10 @@ namespace Parakeet.Ui.ViewModel
         private bool _searching = false; 
 
         public RelayCommand SearchForPositionCommand { get; set; }
-        public RelayCommand OnEnterSearch { get; set; }
-        public RelayCommand OnExitSearch { get; set; }
-        public RelayCommand SavePosition { get; set; }
-        public RelayCommand ClearPosition { get; set; }
+        public RelayCommand ExpandComboBoxCommand { get; set; }
+        public RelayCommand SavePositionCommand { get; set; }
+        public RelayCommand ClearPositionCommand { get; set; }
+        public RelayCommand UpdateCanSaveCommand { get; private set; }
 
         private bool _showMatchingPositions;
         public bool ShowMatchingPositions
@@ -40,7 +41,6 @@ namespace Parakeet.Ui.ViewModel
             set
             {
                 Set(ref _positionsFound, value);
-                ShowMatchingPositions = true;
             }
         }
 
@@ -48,7 +48,11 @@ namespace Parakeet.Ui.ViewModel
         public Position SelectedPosition
         {
             get { return _selectedPosition; }
-            set { Set("SelectedPosition", ref _selectedPosition, value); }
+            set
+            {
+                Set("SelectedPosition", ref _selectedPosition, value);
+                SavePositionCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _searchField;
@@ -56,9 +60,6 @@ namespace Parakeet.Ui.ViewModel
         {
             get
             {
-                if (SelectedPosition.Id == null && _searching == false)
-                    return "Add new role...";
-
                 return _searchField;
             }
             set
@@ -66,6 +67,8 @@ namespace Parakeet.Ui.ViewModel
                 Set(ref _searchField, value);
             }
         }
+
+        
 
         public PositionCenterViewModel(IPositionService positionService)
         {
@@ -76,39 +79,50 @@ namespace Parakeet.Ui.ViewModel
 
         private void InitializeView()
         {
-            SelectedPosition = new Position();
-
             SearchForPositionCommand = new RelayCommand(() =>
             {
-                var found = _positionService.Find(SearchField);
-                PositionsFound = new ObservableCollection<Position>(found);
-            }, () => { return SearchField.Length > 1; });
+                if (SearchField.Length > 1)
+                {
+                    var found = _positionService.Find(SearchField);
+                    PositionsFound = new ObservableCollection<Position>(found);
+                }
+            }, () => { return true; });
 
-            OnEnterSearch = new RelayCommand(() =>
+            SavePositionCommand = new RelayCommand(
+                () => {
+                    _positionService.Save(SelectedPosition);
+                    
+                    if (PositionsFound != null)
+                        PositionsFound.Clear();
+                }
+                ,() =>
+                {
+                    return SelectedPosition != null
+                        && SelectedPosition.Title != null && SelectedPosition.Title.Length > 1
+                        && SelectedPosition.Description != null && SelectedPosition.Description.Length > 1;
+                }
+            );
+
+            ClearPositionCommand = new RelayCommand(() =>
             {
-                _searching = true;
+                SelectedPosition = new Position();
                 SearchField = "";
-                SelectedPosition = new Position();
+                if (PositionsFound != null)
+                    PositionsFound.Clear();
+                SearchForPositionCommand.RaiseCanExecuteChanged();
             });
 
-            OnExitSearch = new RelayCommand(() =>
+            UpdateCanSaveCommand = new RelayCommand(() =>
             {
-                if (SelectedPosition == null)
-                    _searching = false;
-
-                _searching = false;
+                SavePositionCommand.RaiseCanExecuteChanged();
             });
 
-            SavePosition = new RelayCommand(() =>
+            ExpandComboBoxCommand = new RelayCommand(() =>
             {
-                _positionService.Save(SelectedPosition);
-                Console.WriteLine("");
+                ShowMatchingPositions = true;
             });
 
-            ClearPosition = new RelayCommand(() =>
-            {
-                SelectedPosition = new Position();
-            });
+            SelectedPosition = new Position();
         }
     }
 }
