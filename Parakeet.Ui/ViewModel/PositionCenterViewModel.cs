@@ -11,6 +11,8 @@ namespace Parakeet.Ui.ViewModel
     {
         private IPositionService _positionService;
 
+        long SelectedItemHash { get; set; }
+
         public RelayCommand SearchForPositionCommand { get; set; }
         public RelayCommand ExpandComboBoxCommand { get; set; }
         public RelayCommand SavePositionCommand { get; set; }
@@ -47,6 +49,7 @@ namespace Parakeet.Ui.ViewModel
             set
             {
                 Set("SelectedPosition", ref _selectedPosition, value);
+                SelectedItemHash = SelectedPosition == null ? 0 : (SelectedPosition.Title + SelectedPosition.Description).GetHashCode();
                 SavePositionCommand.RaiseCanExecuteChanged();
             }
         }
@@ -93,7 +96,7 @@ namespace Parakeet.Ui.ViewModel
 
                 foreach(var position in found)
                 {
-                    if (position.Id != SelectedPosition.Id)
+                    if (SelectedPosition == null || position.Id != SelectedPosition.Id)
                         PositionsFound.Add(position);
                 }
             }, () => { return true; });
@@ -107,7 +110,8 @@ namespace Parakeet.Ui.ViewModel
                 {
                     return SelectedPosition != null
                         && SelectedPosition.Title != null && SelectedPosition.Title.Length > 1
-                        && SelectedPosition.Description != null && SelectedPosition.Description.Length > 1;
+                        && SelectedPosition.Description != null && SelectedPosition.Description.Length > 1
+                        && (SelectedPosition.Title + SelectedPosition.Description).GetHashCode() != SelectedItemHash;
                 }
             );
 
