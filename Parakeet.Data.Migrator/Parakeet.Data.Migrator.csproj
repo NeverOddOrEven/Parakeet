@@ -55,6 +55,7 @@
     <Compile Include="Migrations\3_CreateRoleTable.cs" />
     <Compile Include="Migrations\2_PersonTable_AddColumns.cs" />
     <Compile Include="Migrations\1_CreatePersonTable.cs" />
+    <Compile Include="Migrations\5_CreatePersonQualificationTable.cs" />
     <Compile Include="Migrations\4_CreateQualificationTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

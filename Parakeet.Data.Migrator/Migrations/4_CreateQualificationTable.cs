@@ -12,8 +12,9 @@ namespace Parakeet.Data.Migrator.Migrations
             Console.WriteLine("Creating the Qualification table");
             Create.Table("Qualification")
                 .WithColumn("Id").AsInt64().Identity(1000, 1).PrimaryKey()
-                .WithColumn("Name").AsAnsiString()
-                .WithColumn("Description").AsAnsiString();
+                .WithColumn("Name").AsAnsiString().NotNullable()
+                .WithColumn("Description").AsAnsiString().Nullable()
+                .WithColumn("Enabled").AsBoolean().WithDefaultValue(true);
         }
 
         public override void Up()

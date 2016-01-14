@@ -21,6 +21,9 @@
                 <Label>
                     <Hyperlink NavigateUri="..\PositionCenter.xaml">Position Center</Hyperlink>
                 </Label>
+                <Label>
+                    <Hyperlink NavigateUri="..\SkillCenter.xaml">Skill Center</Hyperlink>
+                </Label>
             </StackPanel>
             
             <ContentPresenter />

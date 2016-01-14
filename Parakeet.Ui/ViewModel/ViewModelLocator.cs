@@ -54,6 +54,7 @@ namespace Parakeet.Ui.ViewModel
             SimpleIoc.Default.Register<EmployeeCenterViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<PositionCenterViewModel>();
+            SimpleIoc.Default.Register<SkillCenterViewModel>();
         }
 
         /// <summary>
@@ -109,6 +110,20 @@ namespace Parakeet.Ui.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PositionCenterViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the RoleCenter property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public SkillCenterViewModel SkillCenter
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SkillCenterViewModel>();
             }
         }
 

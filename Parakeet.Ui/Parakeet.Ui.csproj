@@ -86,6 +86,7 @@
     <Compile Include="Messages\FileOpenedEventMessage.cs" />
     <Compile Include="Design\RoleRepository.cs" />
     <Compile Include="ViewModel\EmployeeCenterViewModel.cs" />
+    <Compile Include="ViewModel\SkillCenterViewModel.cs" />
     <Compile Include="ViewModel\PositionCenterViewModel.cs" />
     <Compile Include="Views\EmployeeCenter.xaml.cs">
       <DependentUpon>EmployeeCenter.xaml</DependentUpon>
@@ -96,6 +97,9 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\SkillCenter.xaml.cs">
+      <DependentUpon>SkillCenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Resources\NullToVisibilityConverter.cs" />
     <Compile Include="Views\PositionCenter.xaml.cs">
       <DependentUpon>PositionCenter.xaml</DependentUpon>
@@ -120,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SkillCenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Resources\PageTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

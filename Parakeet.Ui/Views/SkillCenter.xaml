@@ -6,11 +6,11 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" 
       xmlns:local="clr-namespace:Parakeet.Ui.Views"
       xmlns:helpers="clr-namespace:Parakeet.Ui.Views.Resources"
-      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Parakeet.Ui.Views.PositionCenter"
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Parakeet.Ui.Views.SkillCenter"
       mc:Ignorable="d"
       d:DesignHeight="300"
       d:DesignWidth="300"
-      Title="Role Center"
+      Title="Skill Center"
       >
 
     <Page.Resources>
@@ -299,7 +299,7 @@
         <Binding Path="PositionCenter" Source="{StaticResource Locator}"/>
     </Page.DataContext>
 
-    <DockPanel x:Name="PositionPage">
+    <DockPanel x:Name="SkillPage">
         <StackPanel DockPanel.Dock="Top" Margin="5">
             <Label Target="{Binding ElementName=PositionSearchComboBox}" Content="Find Role:" HorizontalAlignment="Left" Margin="-5,0,0,0"/>
             <ComboBox x:Name="PositionSearchComboBox"

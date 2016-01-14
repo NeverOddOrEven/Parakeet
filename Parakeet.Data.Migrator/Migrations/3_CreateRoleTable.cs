@@ -16,8 +16,8 @@ namespace Parakeet.Data.Migrator
             Console.WriteLine("Creating the Role table");
             Create.Table("Role")
                 .WithColumn("Id").AsInt64().Identity(1000, 1).PrimaryKey()
-                .WithColumn("Name").AsAnsiString()
-                .WithColumn("Description").AsAnsiString();
+                .WithColumn("Name").AsAnsiString().NotNullable()
+                .WithColumn("Description").AsAnsiString().Nullable();
         }
 
         public override void Down()
