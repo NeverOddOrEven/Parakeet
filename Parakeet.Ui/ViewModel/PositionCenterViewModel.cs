@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Parakeet.Services;
 using Parakeet.Services.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Parakeet.Ui.ViewModel
     {
         private IPositionService _positionService;
 
-        long SelectedItemHash { get; set; }
+        private readonly List<long> PositionsFoundHashes = new List<long>();
 
         public RelayCommand SearchForPositionCommand { get; set; }
         public RelayCommand ExpandComboBoxCommand { get; set; }
@@ -49,7 +50,6 @@ namespace Parakeet.Ui.ViewModel
             set
             {
                 Set("SelectedPosition", ref _selectedPosition, value);
-                SelectedItemHash = SelectedPosition == null ? 0 : (SelectedPosition.Title + SelectedPosition.Description).GetHashCode();
                 SavePositionCommand.RaiseCanExecuteChanged();
             }
         }
@@ -80,6 +80,8 @@ namespace Parakeet.Ui.ViewModel
         {
             SearchForPositionCommand = new RelayCommand(() =>
             {
+                PositionsFoundHashes.Clear();
+
                 var found = _positionService.Find(SearchField);
 
                 if (PositionsFound.Count > 0)
@@ -99,19 +101,33 @@ namespace Parakeet.Ui.ViewModel
                     if (SelectedPosition == null || position.Id != SelectedPosition.Id)
                         PositionsFound.Add(position);
                 }
+
+                var hashes = PositionsFound.Select(x => (long)(x.Title + x.Description).GetHashCode());
+                PositionsFoundHashes.AddRange(hashes);
             }, () => { return true; });
 
             SavePositionCommand = new RelayCommand(
                 () => {
                     _positionService.Save(SelectedPosition);
+
+                    PositionsFoundHashes.Clear();
+                    var hashes = PositionsFound.Select(x => (long)(x.Title + x.Description).GetHashCode());
+                    PositionsFoundHashes.AddRange(hashes);
+
                     SearchField = SelectedPosition.Title;
+
+                    SavePositionCommand.RaiseCanExecuteChanged();
                 }
                 ,() =>
                 {
+                    var selectedPositionHash = SelectedPosition == null 
+                        ? 0 
+                        : (SelectedPosition.Title + SelectedPosition.Description).GetHashCode();
+
                     return SelectedPosition != null
                         && SelectedPosition.Title != null && SelectedPosition.Title.Length > 1
                         && SelectedPosition.Description != null && SelectedPosition.Description.Length > 1
-                        && (SelectedPosition.Title + SelectedPosition.Description).GetHashCode() != SelectedItemHash;
+                        && !PositionsFoundHashes.Contains(selectedPositionHash);
                 }
             );
 
