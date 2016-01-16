@@ -18,7 +18,7 @@ namespace Parakeet.Data
         private static Lazy<ISessionFactory> _sessionFactory = new Lazy<ISessionFactory>(() =>
         {
             var connString = IsSetForUnitTest
-                ? "Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\UnitTest.mdf\";Integrated Security=True"
+                ? "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\asuttmiller\\documents\\visual studio 2013\\Projects\\Parakeet\\Parakeet.Data\\UnitTest.mdf\";Integrated Security=True"
                 : DatabaseFileManager.Instance.ConnectionString;
 
             var sessionFactory = Fluently.Configure()

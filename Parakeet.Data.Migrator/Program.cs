@@ -31,7 +31,7 @@ namespace Parakeet.Data.Migrator
                 dbName = "Unittest";
             }
             
-            var connStr = String.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\\{1}.mdf\";Integrated Security=True", dbPath, dbName);
+            var connStr = String.Format("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"{0}\\{1}.mdf\";Integrated Security=True", dbPath, dbName);
             
             Console.WriteLine("Applying migrations...");
             if (up == true)

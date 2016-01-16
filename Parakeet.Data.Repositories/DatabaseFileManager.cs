@@ -64,7 +64,12 @@ namespace Parakeet.Data
                 _fullPathToDatabase = openFileFullpath;
             } else
             {
-                return CreateFile(openFileFullpath);
+                if (CreateFile(openFileFullpath))
+                {
+                    _fullPathToDatabase = openFileFullpath;
+                    return true;
+                }
+                return false;
             }
 
             return fileExists;

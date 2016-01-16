@@ -8,7 +8,7 @@ namespace Parakeet.Data.Migrator
     {
         public static string GetConnectionString(string fullpath, string dbName)
         {
-            var connectionString = string.Format("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"{0}\";Initial Catalog={1};Integrated Security=True", fullpath, dbName);
+            var connectionString = string.Format("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"{0}\";Initial Catalog={1};Integrated Security=True", fullpath, dbName);
             return connectionString;
         }
 
@@ -58,7 +58,7 @@ namespace Parakeet.Data.Migrator
             string fullpath = Path.Combine(directory, Path.ChangeExtension(dbName, extension));
 
             try {
-                string connectionString = string.Format(@"Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True");
+                string connectionString = string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True");
 
                 using (var connection = new SqlConnection(connectionString))
                 {
@@ -80,7 +80,7 @@ namespace Parakeet.Data.Migrator
         }
 
         private static void DetachDatabase(string dbName) {
-            string connectionString = "Data Source=(LocalDB)\\v11.0;Initial Catalog=master;Integrated Security=True";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
 
             try
             {
