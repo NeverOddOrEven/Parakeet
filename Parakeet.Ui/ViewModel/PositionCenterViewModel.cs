@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Parakeet.Services;
 using Parakeet.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -121,7 +122,7 @@ namespace Parakeet.Ui.ViewModel
                 ,() =>
                 {
                     var selectedPositionHash = SelectedPosition == null 
-                        ? 0 
+                        ? new Random().Next()
                         : (SelectedPosition.Title + SelectedPosition.Description).GetHashCode();
 
                     return SelectedPosition != null
@@ -133,9 +134,10 @@ namespace Parakeet.Ui.ViewModel
 
             ClearPositionCommand = new RelayCommand(() =>
             {
+                PositionsFound.Clear();
                 SelectedPosition = new Position();
                 SearchField = "";
-                PositionsFound.Clear();
+                
             });
 
             UpdateCanSaveCommand = new RelayCommand(() =>
