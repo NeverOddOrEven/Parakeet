@@ -2,12 +2,12 @@
 using FluentMigrator;
 using FluentMigrator.Runner.Extensions;
 
-namespace Parakeet.Data.Migrator.Migrations
+namespace Parakeet.Data.Migrator
 {
     [Migration(4, "Add the Qualification table")]
     public class CreateQualificationTable : Migration
     {
-        public override void Down()
+        public override void Up()
         {
             Console.WriteLine("Creating the Qualification table");
             Create.Table("Qualification")
@@ -17,7 +17,7 @@ namespace Parakeet.Data.Migrator.Migrations
                 .WithColumn("Enabled").AsBoolean().WithDefaultValue(true);
         }
 
-        public override void Up()
+        public override void Down()
         {
             Console.WriteLine("Removing the Qualification table");
             Delete.FromTable("Qualification").AllRows();

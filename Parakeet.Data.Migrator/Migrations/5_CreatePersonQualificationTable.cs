@@ -2,12 +2,12 @@
 using FluentMigrator;
 using FluentMigrator.Runner.Extensions;
 
-namespace Parakeet.Data.Migrator.Migrations
+namespace Parakeet.Data.Migrator
 {
     [Migration(5, "Add the PersonQualification table")]
     public class CreatePersonQualificationTable : Migration
     {
-        public override void Down()
+        public override void Up()
         {
             Console.WriteLine("Creating the PersonQualification table");
             Create.Table("PersonQualification")
@@ -19,7 +19,7 @@ namespace Parakeet.Data.Migrator.Migrations
                 .WithColumn("Notes").AsAnsiString().Nullable();
         }
 
-        public override void Up()
+        public override void Down()
         {
             Console.WriteLine("Removing the PersonQualification table");
             Delete.FromTable("PersonQualification").AllRows();
